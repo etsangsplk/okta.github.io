@@ -20,10 +20,13 @@ and create an authorization server. Use this guide to get up and running with ou
 will also receive an confirmation email.
 3. Once you click on the sign-in link in your email, Okta finishes provisioning your account for you. Sign in with the
  password provided in the email.
-4. Follow the remaining steps for account creation on the form provided after logging in and then click `Create My Account`
+4. Follow the remaining steps for account creation on the form provided after logging in and then click **Create My 
+Account**
 
-After your are finished creating your account, you will be logged into your new organization. In the top right of the screen, there is an `Admin` button. 
-Clicking on the `Admin` button will take you to your Okta Administration Dashboard and this is where we'll be spending 
+After your are finished creating your account, you will be logged into your new organization. In the top right of the
+ screen, there is an **Admin** button. 
+Clicking on the **Admin** button will take you to your Okta Administration Dashboard and this is where we'll be 
+spending 
 most of our time during this guide. For the remainder of this quickstart, we're going to assume the domain for your 
 organization will be `dev-123456.oktapreview.com`. For your application, you'll want to change this url to match your own organizations url. 
 
@@ -36,11 +39,11 @@ our example to be hosted on `http://localhost:8000`. We'll need to add `http://l
 endpoint in Okta.
 
 To do so, follow the steps below:
-1. Navigate to `Admin -> Security -> API` page of your Okta dashboard.
-2. In the `Trusted Origins` tab, click on `Add Origin`. This will open a modal window with a form to fill out.
-3. Give your new origin a name, we will use `PHP Sign-In Widget Example` as ours.
+1. Navigate to **Admin -> Security -> API** page of your Okta dashboard.
+2. In the **Trusted Origins** tab, click on **Add Origin**. This will open a modal window with a form to fill out.
+3. Give your new origin a name, we will use **PHP Sign-In Widget Example** as ours.
 4. In the Origin URL field, fill in your web server that you are hosting on, we'll use `http://localhost:8000`.
-5. Check `CORS` in the `Type` section and then click `Save`
+5. Check **CORS** in the **Type** section and then click **Save**
 
 ## Create an Authorization Server
 An authorization server defines your security boundary, for example "staging" or "production". Within each 
@@ -51,9 +54,9 @@ Universal Directory for transforming attributes, adaptive MFA for end-users, ana
  
 We will need to set up our own authorization server for our example. This is what the Sign-In Widget will communicate 
 with to handle the user authentication services. To set this up, follow the steps below:
-1. Navigate to `Admin -> Security -> API` page of your Okta dashboard.
+1. Navigate to **Admin -> Security -> API** page of your Okta dashboard.
 2. Select the Authorization Servers tab if not already selected.
-3. Click on `Add Authorization Server`. This will open a modal window with a form to fill out.
+3. Click on **Add Authorization Server**. This will open a modal window with a form to fill out.
 4. Fill in the form with your informtaion. For our example, we will be using the following:
    - Name: PHP Sign-In Widget Example - Develop
    - Resource URI: http://localhost:8000 
@@ -61,16 +64,17 @@ with to handle the user authentication services. To set this up, follow the step
      - This value is used as the default 
     audience for Access Tokens
    - Description: This is the development site for our Sign-In Widget example in PHP.
-5. Click `Save`
+5. Click **Save**
 
 ## Create an Access Policy
 Our new authorization server needs to have an access policy, so it knows how to handle its users. To 
 create a new policy, follow the steps below:
  
-1. Navigate to `Admin -> Security -> API` page of your Okta dashboard.
+1. Navigate to **Admin -> Security -> API** page of your Okta dashboard.
 2. Select the Authorization Servers tab if not already selected.
 3. Choose the name of the authorization server we created, or the one you want to add a policy to.
-4. Click on `Access Policies > Add Policy`. If you already have a policy, you may see `` instead of `Add Policy`. This 
+4. Click on **Access Policies > Add Policy**. If you already have a policy, you may see **Add New Access Policy** 
+instead of **Add Policy**. This 
 will open a model window with a form to fill out.
 5. Provide the requested information. For our example, we will be using the following:
    - Name: Policy 1
@@ -80,9 +84,9 @@ will open a model window with a form to fill out.
 ### Add a Rule to New Policy
 For your new policy that we just created, we'll need to add a rule to tell the policy how to function.
  
-1. Navigate to `Admin -> Security -> API -> Access Policies` page of your Okta dashboard.
-2. Select the policy we just created `Policy 1`.
-3. Click on `Add Rule`. This will open a modal window with a form to fill out.
+1. Navigate to **Admin -> Security -> API -> Access Policies** page of your Okta dashboard.
+2. Select the policy we just created **Policy 1**.
+3. Click on **Add Rule**. This will open a modal window with a form to fill out.
 4. Provide the requested information. For our example, we will be using the following:
    - Rule Name: Primary Rule
    - Grant type is: 
@@ -100,34 +104,34 @@ For your new policy that we just created, we'll need to add a rule to tell the p
 Now that we have our access policy set up, we need an application to communicate with. This is the application that 
 will represent the application the Widget signs users into. To create an application, follow the steps below:
 
-1. Navigate to `Admin -> Applications` page of your Okta dashboard.
-2. Click `Add Application`. This will take you to the add application page, we will select the button `Create New 
-App` instead of selecting a pre-defined one. This will open a modal window and give you a few options. We'll be using
+1. Navigate to **Admin -> Applications** page of your Okta dashboard.
+2. Click **Add Application**. This will take you to the add application page, we will select the button **Create New 
+App** instead of selecting a pre-defined one. This will open a modal window and give you a few options. We'll be using
  the following:
    - Platform: Web
    - Sign on method: OpenID Connect
 3. For the general settings page, we'll be using the following:
    - Application Name: PHP Sign-In Widget
    - Application Logo: none
-4. Click `Next` and then we will be configuring OpenID connect:
+4. Click **Next** and then we will be configuring OpenID connect:
    - Redirect URIs: http://localhost:8000/oauth2-callback.php
-5. Click `Finish`
-6. In the `General` tab of the application you just created, we need to add a few `Allowed grant types`. Click `Edit`
- of the `General Settings` area and make sure you select `Implicit (Hybrid)` which will give you the option to select
-  `Allow Access Token with implicit grant type`.  Select that and then click `Save`. 
+5. Click **Finish**
+6. In the **General** tab of the application you just created, we need to add a few **Allowed grant types**. Click **Edit**
+ of the **General Settings** area and make sure you select **Implicit (Hybrid)** which will give you the option to select
+  **Allow Access Token with implicit grant type**.  Select that and then click **Save**. 
 
-Make note of the Client ID from the `Client Credentials` section as we will need this when we set up the widget in 
+Make note of the Client ID from the **Client Credentials** section as we will need this when we set up the widget in 
 our application.
 
 ### Assigning Groups to the Application
 The last part of the application setup is setting up group access.  
 
-1. Navigate to `Admin -> Applications` page of your Okta dashboard and select the application we just created.
-2. Select the `Groups` tab.
-3. Click on `Assign to Groups`. This will open a model window with all groups associated with your organization.
-4. Find `Everyone` in this list and click `Assign`.  You can limit this to only certain groups by selecting on those 
-groups instead of `Everyone`.
-5. Click `Done`
+1. Navigate to **Admin -> Applications** page of your Okta dashboard and select the application we just created.
+2. Select the **Groups** tab.
+3. Click on **Assign to Groups**. This will open a model window with all groups associated with your organization.
+4. Find **Everyone** in this list and click **Assign**.  You can limit this to only certain groups by selecting on those 
+groups instead of **Everyone**.
+5. Click **Done**
 
 # PHP Application Set-up
 Now that we have all the configuration at Okta done, we can now begin setting up our PHP application. There are a 
@@ -191,11 +195,11 @@ We also need to add a script block to initialize and configure the widget.
 
 | Key                     | Description                                                                                                                                          |
 |-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| baseUrl                 | This is your Organization url in Okta. It will be the url of the admin pages without the `-admin` for example `https://dev-123456.oktapreview.com`   |
+| baseUrl                 | This is your Organization url in Okta. It will be the url of the admin pages without the **-admin** for example `https://dev-123456.oktapreview.com`   |
 | clientId                | The client ID of the Okta application.                                                                                                               |
 | redirectUri             | Where we will send the user to once they attempt a login.                                                                                            |
 | authParams.responseType | What we want back from a successful login                                                                                                            |
-| authParams.issuer       | The issuer of the authentication server. Can be retrieved from `Admin -> Security -> API -> {Auth Server}`                                           |
+| authParams.issuer       | The issuer of the authentication server. Can be retrieved from **Admin -> Security -> API -> {Auth Server}**                                           |
 | authParams.display      | Redirect to the authorization server when an External Identity Provider button is clicked                                                            |
 
 Now we can visit the `login.php` page and see the Sign In Widget. You should be able to log into your main account. 
@@ -260,12 +264,69 @@ An Access Token must be validated in the following manner:
 1. Verify that the `iss` (issuer) claim matches the identifier of your authorization server.
 2. Verify that the `aud` (audience) claim is the requested URL.
 3. Verify `cid` (client id) claim is your client id.
-4. Verify the signature of the Access Token according to [JWS](https://tools.ietf.org/html/rfc7515) using the algorithm specified in the JWT *alg* header property. Use the public keys provided by Okta via the [Get Keys endpoint](/docs/api/resources/oauth2.html#get-keys).
+4. Verify the signature of the Access Token according to [JWS](https://tools.ietf.org/html/rfc7515) using the 
+algorithm specified in the JWT `alg` header property. Use the public keys provided by Okta via the [Get Keys endpoint](/docs/api/resources/oauth2.html#get-keys).
 5. Verify that the expiry time (from the `exp` claim) has not already passed.
 
-Step 4 involves downloading the public JWKS from Okta (specified by the *jwks_uri* property in the [authorization server metadata](/docs/api/resources/oauth2.html#authorization-server-metadata). The result of this call is a [JSON Web Key](https://tools.ietf.org/html/rfc7517) set.
+```php
+if($res->claims['iss'] != 'https://dev-123456.oktapreview.com/') {
+    return $response->withStatus(401);
+}
 
-Each public key is identified by a *kid* attribute, which corresponds with the *kid* claim in the [Access Token header](/docs/api/resources/oauth2.html#token-authentication-method).
+if($res->claims['aud'] != $oidcClientId) {
+    return $response->withStatus(401);
+}
+
+if($res->claims['exp'] < time()-300) {
+    return $response->withStatus(401);
+}
+
+```
+
+Step 4 involves downloading the public JWKS from Okta (specified by the `jwks_uri` property in the [authorization server metadata](/docs/api/resources/oauth2.html#authorization-server-metadata). The result of this call is a [JSON Web Key](https://tools.ietf.org/html/rfc7517) set.
+
+An `id_token` contains a [public key id](https://tools.ietf.org/html/rfc7517#section-4.5) (`kid`). To verify the signature, we use the [Discovery Document](http://developer.okta.com/docs/api/resources/oidc.html#openid-connect-discovery-document) to find the `jwks_uri`, which will return a list of public keys. It is safe to cache or persist these keys for performance, but Okta rotates them periodically. We strongly recommend dynamically retrieving these keys.
+
+```php
+$jwk = null;
+
+ if($kidInCache) {
+    $jwk = getKidFromCache($kid);
+ }
+else {
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://dev-123456.oktapreview.com/oauth2/ausa87h9g2misxHVS0h7/v1/keys');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+
+    $output = curl_exec($ch);
+
+    curl_close($ch);
+
+    $output = json_decode($output);
+
+    foreach ($output->keys as $key) {
+        // poormans cache
+        storeKidInCache($key->kid, $key);
+       
+        $cachedJwks[$key->kid] = $key;
+        if ($key->kid == $kid) {
+            $jwk = $key;
+        }
+    }
+}
+```
+
+Once you have the `JWK` you can now verify the access token. Our example is using the [gree/jose](https://packagist.org/packages/gree/jose) library.
+
+```php
+$jwt_string = 'eyJ...';
+$jws = JOSE_JWT::decode($jwt_string);
+$jws->verify($jwk, 'RS256');
+```
+
+Each public key is identified by a `kid` attribute, which corresponds with the `kid` claim in the [Access Token header](/docs/api/resources/oauth2.html#token-authentication-method).
 
 The Access Token is signed by an RSA private key, and we publish the future signing key well in advance.
 However, in an emergency situation you can still stay in sync with Okta's key rotation. Have your application check the `kid`, and if it has changed and the key is missing from the local cache, check the `jwks_uri` value in the [authorization server metadata](/docs/api/resources/oauth2.html#authorization-server-metadata) and you can go back to the [jwks uri](/docs/api/resources/oauth2.html#get-keys) to get keys again from Okta
@@ -278,7 +339,16 @@ Please note the following:
 * Okta always publishes keys to the JWKS.
 * To save the network round trip, your app can cache the JWKS response locally. The standard HTTP caching headers are used and should be respected.
 {% beta %}
-* The administrator can switch the authorization server key rotation mode to `MANUAL` by [updating the authorization server](/docs/api/resources/oauth2.html#update-authorization-server) and then control when to [rotate the keys](#rotate-authorization-server-keys).
+* The administrator can switch the authorization server key rotation mode to **MANUAL** by [updating the authorization server](/docs/api/resources/oauth2.html#update-authorization-server) and then control when to [rotate the keys](#rotate-authorization-server-keys).
 {% endbeta %}
 
 Keys used to sign tokens automatically rotate and should always be resolved dynamically against the published JWKS. Your app can fail if you hardcode public keys in your applications. Be sure to include key rollover in your implementation.
+
+### References
+
+ - [Sign Up For Okta](https://www.okta.com/developer/signup/)
+ - [Setting Up Authorization Server](/docs/how-to/set-up-auth-server.html)
+ - [Gree/Jose JWK Library](https://github.com/nov/jose-php)
+ - [JWS Spec](https://tools.ietf.org/html/rfc7515)
+ - [JWT Spec](https://tools.ietf.org/html/rfc7519)
+ - [Authorization Code Flow](https://tools.ietf.org/html/rfc6749#section-1.3.1)
